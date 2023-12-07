@@ -33,55 +33,71 @@
     <h3>修改的部分</h3>
     private void SetButtonStates()
     {
-        int totalItems = CBF110046_DDL1.Items.Count;
-        int currentPageIndex = Convert.ToInt32(ViewState["StartIndex"]) / pageSize;
-        int totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
+    int totalItems = CBF110046_DDL1.Items.Count;
+    int currentPageIndex = Convert.ToInt32(ViewState["StartIndex"]) / pageSize;
+    int totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
 
-        if (currentPageIndex == 0)
-        {
-            CBF110046_PreviousButton.Enabled = false;
-            CBF110046_NextButton.Enabled = true;
-        }
-        else if (CBF110046_DDL1.Items.Count < 10)
-        {
-            CBF110046_PreviousButton.Enabled = true;
-            CBF110046_NextButton.Enabled = false;
-        }
-        else
-        {
-            CBF110046_PreviousButton.Enabled = true;
-            CBF110046_NextButton.Enabled = true;
-        }
+    if (currentPageIndex == 0)
+    {
+    CBF110046_PreviousButton.Enabled = false;
+    CBF110046_NextButton.Enabled = true;
+    }
+    else if (CBF110046_DDL1.Items.Count < 10)
+    {
+    CBF110046_PreviousButton.Enabled = true;
+    CBF110046_NextButton.Enabled = false;
+    }
+    else
+    {
+    CBF110046_PreviousButton.Enabled = true;
+    CBF110046_NextButton.Enabled = true;
+    }
     <h3>程式碼說明</h3>
     private void SetButtonStates() // 按鈕狀態設定
     {
-        int totalItems = CBF110046_DDL1.Items.Count; //獲取下拉列表 CBF110046_DDL1 中的總項數
-        int currentPageIndex = Convert.ToInt32(ViewState["StartIndex"]) / pageSize; //獲取當前頁的索引，這是通過將 ViewState["StartIndex"] 轉換為整數得到的
-        int totalPages = (int)Math.Ceiling((double)totalItems / pageSize); //計算總頁數，這是通過將總項數除以每頁項數 pageSize 得到的，並使用 Math.Ceiling 進行向上取整
+    int totalItems = CBF110046_DDL1.Items.Count; //獲取下拉列表 CBF110046_DDL1 中的總項數
+    int currentPageIndex = Convert.ToInt32(ViewState["StartIndex"]) / pageSize; //獲取當前頁的索引，這是通過將 ViewState["StartIndex"] 轉換為整數得到的
+    int totalPages = (int)Math.Ceiling((double)totalItems / pageSize); //計算總頁數，這是通過將總項數除以每頁項數 pageSize 得到的，並使用 Math.Ceiling 進行向上取整
 
-        if (currentPageIndex == 0) //當前頁的頁數=0
-        {
-            CBF110046_PreviousButton.Enabled = false; //禁用上一頁按鈕
-            CBF110046_NextButton.Enabled = true; //啟用下一頁按鈕
-        }
-        else if (CBF110046_DDL1.Items.Count < 10) //下拉列表中的項數小於 10
-        {
-            CBF110046_PreviousButton.Enabled = true; //啟用上一頁按鈕
-            CBF110046_NextButton.Enabled = false; //禁用下一頁按鈕
-        }
-        else //都不是
-        {
-            CBF110046_PreviousButton.Enabled = true; //啟用上一頁按鈕
-            CBF110046_NextButton.Enabled = true; //啟用下一頁按鈕
-        }
-    
+    if (currentPageIndex == 0) //當前頁的頁數=0
+    {
+    CBF110046_PreviousButton.Enabled = false; //禁用上一頁按鈕
+    CBF110046_NextButton.Enabled = true; //啟用下一頁按鈕
+    }
+    else if (CBF110046_DDL1.Items.Count < 10) //下拉列表中的項數小於 10
+    {
+    CBF110046_PreviousButton.Enabled = true; //啟用上一頁按鈕
+    CBF110046_NextButton.Enabled = false; //禁用下一頁按鈕
+    }
+    else //都不是
+    {
+    CBF110046_PreviousButton.Enabled = true; //啟用上一頁按鈕
+    CBF110046_NextButton.Enabled = true; //啟用下一頁按鈕
+    }
+
     <h2>程式執行畫面</h2>
     在這裡，你可以分享你的程式執行畫面，並解釋每個畫面的功能。
     <h3>功能介紹</h3>
+    a. 以gridview分頁顯示資料表內容(請不要顯示 id欄位), 並允許編輯與刪除資料。請將 GridView 的名稱設定為 "學號_GV1"，並將 "學號" 部分替換為您的學號。例如你的學號是CBF112001則GridView的id請設成"CBF112001_GV1".<br />
+    b. 欲刪除資料前會先跟使用者做確認. 確認訊息為"你確定要刪除嗎?"<br />
+    c. 顯示時編輯刪除按鈕不要換行 (設定ItemStyle的Wrap=False)，當按下編輯按鈕時, sentence欄位會充滿整個儲存格(width='98%', 多行)<br />
+    d. 使用DropDownList 顯示10個單字，按下按鈕可以顯示後10個單字，或前10個單字.
+    (DropDownList名稱"學號_DDL1", 按鈕"學號_PreviousButton"及"學號_NextButton"請記得更改學號部份.)<br />
+    e. 點選DropDownList中的項目會顯示對應的中文解釋，依次記錄在下方。換頁(按下前10個單字或後10個單字按鈕)後則清空，並呈現第一筆單字的英文中文對應及超連結。超連結只有在英文部份出現，會連至cambridge字典，方便使用者查詢該單字。<br />
+    f. GridView刪除資料時會反應至DropDownList. 按鈕會依目前是最後一頁或第一頁來呈現可按或不可按狀態。<br />
+    g. 按下"測驗去"按鈕後會進入測驗。測驗題目為最近在DropDownList中呈現的單字。題目會呈現中文解釋及英文首字元及底線提示有幾個字元。<br />
+    h. 會正確判斷答對或答錯，答錯時並提供正確答案。<br />
+    i. 出題次序是隨機且不重複(洗牌演算法)。<br />
+    j. 測驗時可以完全使用鍵盤(不使用滑鼠)連續輸入。<br />
+    k. 答完題後會計算得分。<br />
+    l. 能顯示"結束"按鈕，點入後可正確結束程式。<br />
+    m. 能顯示"重玩"連結，點入後可正確重新執行。
     <h3>畫面展示</h3>
-    <img src="testphoto/螢幕擷取畫面 2023-12-07 143956.png"></img>
-            
-
+    <img src="photo/螢幕擷取畫面 2023-12-07 143956.png" width="600" height="400"><br />
+    <img src="photo/螢幕擷取畫面 2023-12-07 144034.png" width="600" height="400"><br />
+    <img src="photo/螢幕擷取畫面 2023-12-07 144101.png" width="600" height="400"><br />
+    <img src="photo/螢幕擷取畫面 2023-12-07 144121.png" width="500" height="100"><br />
+    <img src="photo/螢幕擷取畫面 2023-12-07 144135.png" width="500" height="100">
 
     <h2>個人心得與反思</h2>
     在這裡，你可以分享你對於這次開發經驗的感想，以及你從中學到了什麼。
