@@ -31,7 +31,49 @@
     <h2>修改後的程式內容</h2>
     在這裡，你可以分享你修改後的程式碼，並解釋你做了哪些改變。
     <h3>修改的部分</h3>
+    private void SetButtonStates()
+    {
+        int totalItems = CBF110046_DDL1.Items.Count;
+        int currentPageIndex = Convert.ToInt32(ViewState["StartIndex"]) / pageSize;
+        int totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
+
+        if (currentPageIndex == 0)
+        {
+            CBF110046_PreviousButton.Enabled = false;
+            CBF110046_NextButton.Enabled = true;
+        }
+        else if (CBF110046_DDL1.Items.Count < 10)
+        {
+            CBF110046_PreviousButton.Enabled = true;
+            CBF110046_NextButton.Enabled = false;
+        }
+        else
+        {
+            CBF110046_PreviousButton.Enabled = true;
+            CBF110046_NextButton.Enabled = true;
+        }
     <h3>程式碼說明</h3>
+    private void SetButtonStates() // 按鈕狀態設定
+    {
+        int totalItems = CBF110046_DDL1.Items.Count; //獲取下拉列表 CBF110046_DDL1 中的總項數
+        int currentPageIndex = Convert.ToInt32(ViewState["StartIndex"]) / pageSize; //獲取當前頁的索引，這是通過將 ViewState["StartIndex"] 轉換為整數得到的
+        int totalPages = (int)Math.Ceiling((double)totalItems / pageSize); //計算總頁數，這是通過將總項數除以每頁項數 pageSize 得到的，並使用 Math.Ceiling 進行向上取整
+
+        if (currentPageIndex == 0) //當前頁的頁數=0
+        {
+            CBF110046_PreviousButton.Enabled = false; //禁用上一頁按鈕
+            CBF110046_NextButton.Enabled = true; //啟用下一頁按鈕
+        }
+        else if (CBF110046_DDL1.Items.Count < 10) //下拉列表中的項數小於 10
+        {
+            CBF110046_PreviousButton.Enabled = true; //啟用上一頁按鈕
+            CBF110046_NextButton.Enabled = false; //禁用下一頁按鈕
+        }
+        else //都不是
+        {
+            CBF110046_PreviousButton.Enabled = true; //啟用上一頁按鈕
+            CBF110046_NextButton.Enabled = true; //啟用下一頁按鈕
+        }
     
     <h2>程式執行畫面</h2>
     在這裡，你可以分享你的程式執行畫面，並解釋每個畫面的功能。
